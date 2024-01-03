@@ -1,0 +1,43 @@
+.login-container {
+    background-color: #f0f2f5;
+    min-height: 100vh;
+
+    .content-left {
+        margin-top: 60px;
+        padding-left: 30px;
+
+        .brand {
+            text-transform: uppercase;
+            color: #1877f2;
+            font-size: 40px;
+        }
+
+        .detail {
+            font-size: 26px;
+        }
+    }
+
+    .content-right {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+        box-sizing: border-box;
+
+        .brand {
+            text-transform: uppercase;
+            color: #1877f2;
+            font-size: 20px;
+            text-align: center;
+            font-weight: 600;
+
+        }
+
+        .forgot-password {
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
