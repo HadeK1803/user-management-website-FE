@@ -1,14 +1,20 @@
 import { Fragment } from 'react';
 import './App.scss';
+
 import Nav from './components/Navigation/Nav';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
+
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import {
     BrowserRouter as Router,
     Switch,
     Route,
     Link
 } from "react-router-dom";
+
 function App() {
     return (
         <Router>
@@ -38,8 +44,19 @@ function App() {
                         404 NOT FOUND!
                     </Route>
                 </Switch>
-
             </div>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         </Router>
 
     );
