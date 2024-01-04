@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import './App.scss';
 
 import Nav from './components/Navigation/Nav';
@@ -12,7 +11,6 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
 } from "react-router-dom";
 
 function App() {
@@ -20,7 +18,7 @@ function App() {
         <Router>
 
             <div className='app-container'>
-                {/* <Nav /> */}
+                <Nav />
                 <Switch>
                     <Route path="/about">
                         about
@@ -28,7 +26,7 @@ function App() {
                     <Route path="/news">
                         news
                     </Route>
-                    <Route path="/contacts">
+                    <Route path="/contact">
                         contacts
                     </Route>
                     <Route path="/login">
