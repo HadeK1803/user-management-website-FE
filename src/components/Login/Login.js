@@ -1,9 +1,60 @@
 import './Login.scss';
 import { useHistory } from 'react-router-dom';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { loginUser } from '../../services/userService';
 const Login = (props) => {
     let history = useHistory();
+    const [valueLogin, setValueLogin] = useState("");
+    const [password, setPassword] = useState("");
+
+    const defaultValidInputs = {
+        isValidLogin: true,
+        isValidPassword: true,
+    }
+    const [objCheckInput, setObjCheckInput] = useState(defaultValidInputs);
+
     const handleCreateNewAccount = () => {
         history.push("/register");
+    }
+
+    const isValidInputs = () => {
+        setObjCheckInput(defaultValidInputs);
+        if (!valueLogin) {
+            toast.error("Please enter your email or your phone number");
+            setObjCheckInput({ ...defaultValidInputs, isValidLogin: false });
+            return false;
+        }
+        if (!password || password.length < 8) {
+            toast.error("Your password must be at least 8 characters");
+            setObjCheckInput({ ...defaultValidInputs, isValidPassword: false });
+            return false;
+        }
+        return true;
+    }
+    const handleLogin = async () => {
+
+        let check = isValidInputs();
+        let userData = { valueLogin, password };
+        if (check === true) {
+            let response = await loginUser(userData);
+
+            if (response && response.data && +response.data.EC === 0) {
+                toast.success("Login successfully");
+
+                let data = {
+                    isAuthenticated: true,
+                    token: 'fake token',
+                }
+                //set session
+                sessionStorage.setItem("account", JSON.stringify(data));
+
+                history.push("/users");
+            }
+            if (response && response.data && +response.data.EC !== 0) {
+                toast.error(response.data.EM);
+            }
+        }
     }
     return (
         <div className="login-container p-sm-5">
@@ -21,9 +72,24 @@ const Login = (props) => {
                         <div className='brand d-sm-none '>
                             HadeK
                         </div>
-                        <input type='text' className='form-control' placeholder='Email or phone number'></input>
-                        <input type='password' className='form-control' placeholder='Password'></input>
-                        <button className='btn btn-primary'>Login</button>
+                        <input
+                            type='text'
+                            className={objCheckInput.isValidLogin ? 'form-control' : 'form-control is-invalid'}
+
+                            placeholder='Email or phone number'
+                            value={valueLogin} onChange={(event) => setValueLogin(event.target.value)}
+                        ></input>
+                        <input
+                            type='password'
+                            className={objCheckInput.isValidPassword ? 'form-control' : 'form-control is-invalid'}
+                            placeholder='Password'
+                            value={password} onChange={(event) => setPassword(event.target.value)}
+
+                        ></input>
+                        <button
+                            className='btn btn-primary'
+                            onClick={() => handleLogin()}
+                        >Login</button>
                         <span className='text-center'>
                             <a className='forgot-password' href="#">
                                 Forgot your password?

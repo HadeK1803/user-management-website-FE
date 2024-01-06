@@ -3,9 +3,14 @@ import './App.scss';
 import Nav from './components/Navigation/Nav';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
+import Users from './components/ManageUser/Users';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import { useEffect, useState } from 'react';
+
+import _ from 'lodash';
 
 import {
     BrowserRouter as Router,
@@ -14,11 +19,23 @@ import {
 } from "react-router-dom";
 
 function App() {
+
+    const [account, setAccount] = useState({});
+
+    useEffect(() => {
+        let session = sessionStorage.getItem("account");
+        if (session) {
+            setAccount(JSON.parse(session));
+        }
+    }, [])
+
     return (
         <Router>
 
             <div className='app-container'>
-                <Nav />
+                {/* Render Nav component when user logged in  */}
+                {account && !_.isEmpty(account) && account.isAuthenticated && <Nav />}
+
                 <Switch>
                     <Route path="/about">
                         about
@@ -34,6 +51,9 @@ function App() {
                     </Route>
                     <Route path="/register">
                         <Register />
+                    </Route>
+                    <Route path="/users">
+                        <Users />
                     </Route>
                     <Route path="/" exact>
                         Home

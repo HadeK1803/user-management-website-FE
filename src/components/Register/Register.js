@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 
 import { toast } from 'react-toastify';
 
+import { registerNewUser } from '../../services/userService';
+
 
 const Register = (props) => {
     const [email, setEmail] = useState("");
@@ -65,17 +67,27 @@ const Register = (props) => {
         return true;
     }
 
-    const handleClickedRegister = () => {
-        let userData = { email, phone, username, password, confirmPassword };
-        console.log(userData);
+    const handleClickedRegister = async () => {
+        let userData = { email, phone, username, password };
         let check = isValidInputs();
+        if (check === true) {
+            let response = await registerNewUser(userData);
+            let serverData = response.data;
+            if (+serverData.EC === 0) {
+                toast.success(serverData.EM);
+                history.push("/login");
+            }
+            else {
+                toast.error(serverData.EM);
+            }
+        }
     }
 
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/v1/testApi").then(data => {
-            console.log(">>>Check data: ", data);
-        })
+        // axios.get("http://localhost:8080/api/v1/testApi").then(data => {
+        //     console.log(">>>Check data: ", data);
+        // })
     }, [])
     return (
         <div className="register-container p-sm-5">
