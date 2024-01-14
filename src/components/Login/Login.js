@@ -1,12 +1,20 @@
 import './Login.scss';
 import { useHistory } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { loginUser } from '../../services/userService';
 const Login = (props) => {
     let history = useHistory();
     const [valueLogin, setValueLogin] = useState("");
     const [password, setPassword] = useState("");
+
+    useEffect(() => {
+        let session = sessionStorage.getItem("account");
+        if (session) {
+            history.push("/");
+        }
+
+    }, []);
 
     const defaultValidInputs = {
         isValidLogin: true,
@@ -50,10 +58,17 @@ const Login = (props) => {
                 sessionStorage.setItem("account", JSON.stringify(data));
 
                 history.push("/users");
+                window.location.reload();
             }
             if (response && response.data && +response.data.EC !== 0) {
                 toast.error(response.data.EM);
             }
+        }
+    }
+    const handlePressEnter = (event) => {
+        console.log(event);
+        if (event.charCode === 13 && event.code === "Enter") {
+            handleLogin();
         }
     }
     return (
@@ -84,6 +99,7 @@ const Login = (props) => {
                             className={objCheckInput.isValidPassword ? 'form-control' : 'form-control is-invalid'}
                             placeholder='Password'
                             value={password} onChange={(event) => setPassword(event.target.value)}
+                            onKeyPress={(event) => handlePressEnter(event)}
 
                         ></input>
                         <button

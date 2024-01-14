@@ -1,22 +1,17 @@
 import './App.scss';
 
 import Nav from './components/Navigation/Nav';
-import Login from './components/Login/Login';
-import Register from './components/Register/Register';
-import Users from './components/ManageUser/Users';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { useEffect, useState } from 'react';
 
-import _ from 'lodash';
-
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
+    BrowserRouter as Router
 } from "react-router-dom";
+
+import AppRoutes from './routes/AppRoutes';
 
 function App() {
 
@@ -31,37 +26,15 @@ function App() {
 
     return (
         <Router>
-
-            <div className='app-container'>
+            <div className='app-header'>
                 {/* Render Nav component when user logged in  */}
-                {account && !_.isEmpty(account) && account.isAuthenticated && <Nav />}
+                {/* {account && !_.isEmpty(account) && account.isAuthenticated && <Nav />} */}
+                <Nav />
 
-                <Switch>
-                    <Route path="/about">
-                        about
-                    </Route>
-                    <Route path="/news">
-                        news
-                    </Route>
-                    <Route path="/contact">
-                        contacts
-                    </Route>
-                    <Route path="/login">
-                        <Login />
-                    </Route>
-                    <Route path="/register">
-                        <Register />
-                    </Route>
-                    <Route path="/users">
-                        <Users />
-                    </Route>
-                    <Route path="/" exact>
-                        Home
-                    </Route>
-                    <Route path="*">
-                        404 NOT FOUND!
-                    </Route>
-                </Switch>
+            </div>
+            <div className='app-container'>
+                <AppRoutes />
+
             </div>
             <ToastContainer
                 position="top-right"
