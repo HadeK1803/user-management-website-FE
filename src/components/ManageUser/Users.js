@@ -2,14 +2,23 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import './users.scss';
+import { toast } from 'react-toastify';
 
-import { fetchAllUsers } from '../../services/userService'
+import { fetchAllUsers, deleteUser } from '../../services/userService'
+
+import ModalDelete from './ModalDelete';
+
+
 
 const Users = (props) => {
     const [listUsers, setListUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [currentLimit, setCurrentLimit] = useState(3);
+    const [currentLimit, setCurrentLimit] = useState(5);
     const [totalPages, setTotalPages] = useState(0);
+
+    const [isShowModalDelete, setIsShowModalDelete] = useState(false);
+
+    const [dataModal, setDataModal] = useState({});
 
     useEffect(() => {
         fetchUsers();
@@ -27,7 +36,30 @@ const Users = (props) => {
     const handlePageClick = async (event) => {
         setCurrentPage(+event.selected + 1)
         // await fetchUsers(+event.selected + 1);
-    };
+    }
+    // Handle when clicked delete user button
+    const handleDeleteUser = async (user) => {
+        setDataModal(user);
+        setIsShowModalDelete(true);
+    }
+    // Handle close modal
+    const handleClose = () => {
+        setDataModal({});
+        setIsShowModalDelete(false);
+
+    }
+    const confirmDeleteUser = async () => {
+        let response = await deleteUser(dataModal);
+
+        if (response && response.data && +response.data.EC === 0) {
+            toast.success(response.data.EM);
+            handleClose();
+            await fetchUsers();
+        }
+        if (response && response.data && +response.data.EC !== 0) {
+            toast.error(response.data.EM);
+        }
+    }
     return (
         <>
             <div className='container'>
@@ -60,14 +92,16 @@ const Users = (props) => {
                                         {listUsers.map((item, index) => {
                                             return (
                                                 <tr key={`row-${index}`}>
-                                                    <td>{index + 1}</td>
+                                                    <td>{(currentPage - 1) * currentLimit + index + 1}</td>
                                                     <td>{item.id}</td>
                                                     <td>{item.email}</td>
                                                     <td>{item.username}</td>
                                                     <td>{item.Group ? item.Group.name : ''}</td>
                                                     <td>
-                                                        <button className='btn btn-warning'>Edit</button>
-                                                        <button className='btn btn-danger'>Delete</button>
+                                                        <button className='btn btn-warning mx-3'>Edit</button>
+                                                        <button className='btn btn-danger'
+                                                            onClick={() => handleDeleteUser(item)}
+                                                        >Delete</button>
                                                     </td>
                                                 </tr>
                                             )
@@ -115,6 +149,12 @@ const Users = (props) => {
                 </div>
 
             </div>
+            <ModalDelete
+                show={isShowModalDelete}
+                handleClose={handleClose}
+                confirmDeleteUser={confirmDeleteUser}
+                dataModal={dataModal}
+            />
         </>
     )
 }

@@ -82,6 +82,12 @@ const Register = (props) => {
             }
         }
     }
+    const handlePressEnter = (event) => {
+        console.log(event);
+        if (event.charCode === 13 && event.code === "Enter") {
+            handleClickedRegister();
+        }
+    }
 
 
     useEffect(() => {
@@ -142,7 +148,9 @@ const Register = (props) => {
                             <input type='password'
                                 className={objCheckInput.isValidConfirmPassword ? 'form-control' : 'form-control is-invalid'}
                                 id="retypePassword" placeholder='Enter password again'
-                                value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)}
+                                value={confirmPassword}
+                                onChange={(event) => setConfirmPassword(event.target.value)}
+                                onKeyPress={(event) => handlePressEnter(event)}
                             ></input>
                         </div>
                         <button className='btn btn-primary' onClick={() => handleClickedRegister()}>Register</button>
