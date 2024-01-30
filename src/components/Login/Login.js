@@ -47,7 +47,7 @@ const Login = (props) => {
         if (check === true) {
             let response = await loginUser(userData);
 
-            if (response && response.data && +response.data.EC === 0) {
+            if (response && +response.EC === 0) {
                 toast.success("Login successfully");
 
                 let data = {
@@ -60,8 +60,8 @@ const Login = (props) => {
                 history.push("/users");
                 window.location.reload();
             }
-            if (response && response.data && +response.data.EC !== 0) {
-                toast.error(response.data.EM);
+            if (response && +response.EC !== 0) {
+                toast.error(response.EM);
             }
         }
     }

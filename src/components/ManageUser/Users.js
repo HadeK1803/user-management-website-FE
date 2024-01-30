@@ -33,11 +33,12 @@ const Users = (props) => {
 
     const fetchUsers = async () => {
         let response = await fetchAllUsers(currentPage, currentLimit);
-        if (response && response.data && +response.data.EC === 0) {
+        console.log(">>>Check response after fetching user: ", response);
+        if (response && +response.EC === 0) {
 
-            setListUsers(response.data.DT.users);
+            setListUsers(response.DT.users);
 
-            setTotalPages(response.data.DT.totalPages);
+            setTotalPages(response.DT.totalPages);
         }
     }
     const handlePageClick = async (event) => {
@@ -59,13 +60,13 @@ const Users = (props) => {
     const confirmDeleteUser = async () => {
         let response = await deleteUser(dataModal);
 
-        if (response && response.data && +response.data.EC === 0) {
-            toast.success(response.data.EM);
+        if (response && +response.EC === 0) {
+            toast.success(response.EM);
             handleClose();
             await fetchUsers();
         }
-        if (response && response.data && +response.data.EC !== 0) {
-            toast.error(response.data.EM);
+        if (response && +response.EC !== 0) {
+            toast.error(response.EM);
         }
     }
     const onHideModalUser = async () => {
@@ -97,13 +98,13 @@ const Users = (props) => {
                             <button className='btn btn-success'
                                 onClick={() => handleClickedRefresh()}
                             >
-                                <i class="fa fa-refresh"></i>
+                                <i className="fa fa-refresh"></i>
                                 Refresh
                             </button>
                             <button className='btn btn-primary mx-3'
                                 onClick={() => { setIsShowModalUser(true); setActionModalUser("CREATE"); }}
                             >
-                                <i class="fa fa-plus-circle"></i>
+                                <i className="fa fa-plus-circle"></i>
                                 Add new user
                             </button>
                         </div>
@@ -137,13 +138,13 @@ const Users = (props) => {
                                                         <button className='btn btn-warning mx-3'
                                                             onClick={() => handleEditUser(item)}
                                                         >
-                                                            <i class="fa fa-pencil"></i>
+                                                            <i className="fa fa-pencil"></i>
                                                             Edit
                                                         </button>
                                                         <button className='btn btn-danger'
                                                             onClick={() => handleDeleteUser(item)}
                                                         >
-                                                            <i class="fa fa-trash"></i>
+                                                            <i className="fa fa-trash"></i>
                                                             Delete
                                                         </button>
                                                     </td>

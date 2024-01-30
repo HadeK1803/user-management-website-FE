@@ -24,7 +24,7 @@ const ModalUser = (props) => {
         if (action === 'CREATE') {
             if (userGroups && userGroups.length > 0) {
                 //Set default group value
-                setUserData({ ...userData, group: userGroups[0].id })
+                setUserData({ ...userData, group: userGroups[0].id, sex: '1' })
             }
         }
     }, [action])
@@ -32,15 +32,15 @@ const ModalUser = (props) => {
     // Automatically load groups info
     const getGroups = async () => {
         let response = await fetchGroup();
-        if (response && response.data && +response.data.EC === 0) {
-            setUserGroups(response.data.DT);
-            if (response.data.DT && response.data.DT.length > 0) {
-                let groups = response.data.DT;
+        if (response && +response.EC === 0) {
+            setUserGroups(response.DT);
+            if (response.DT && response.DT.length > 0) {
+                let groups = response.DT;
                 //Set default group value
                 setUserData({ ...userData, group: groups[0].id })
             }
         } else {
-            toast.error(response.data.EM);
+            toast.error(response.EM);
         }
     }
     let defaultUserData = {
@@ -109,20 +109,20 @@ const ModalUser = (props) => {
                 : await updateCurrentUser({ ...userData, groupId: userData['group'] });
 
             // Invoked api successfully
-            if (response && response.data && +response.data.EC === 0) {
-                toast.success(response.data.EM);
+            if (response && +response.EC === 0) {
+                toast.success(response.EM);
                 // Hide Modal User after saving new user
                 handleCloseModal();
                 // Reset user data after saving new user
                 // setUserData({ ...defaultUserData, group: userGroups[0].id });
             }
             // Invoked api fail
-            if (response && response.data && +response.data.EC !== 0) {
-                toast.error(response.data.EM);
+            if (response && +response.EC !== 0) {
+                toast.error(response.EM);
                 //Clone validInputs
                 let _validInputs = _.cloneDeep(defaultValidInputs);
                 //set input what is incorrect or not valid
-                _validInputs[response.data.DT] = false;
+                _validInputs[response.DT] = false;
                 //set valid input with clone of validInputs
                 setValidInputs(_validInputs);
             }
@@ -199,7 +199,7 @@ const ModalUser = (props) => {
                             aria-label="Default select example"
                             onChange={(event) => handleOnchangeInput(event.target.value, "sex")}
                             // 
-                            value={userData.sex === false ? "0" : "1"}
+                            value={+userData.sex === 1 ? "1" : "0"}
                         >
                             <option value="1">Male</option>
                             <option value="0">Female</option>
