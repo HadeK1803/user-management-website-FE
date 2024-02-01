@@ -70,6 +70,7 @@ const Users = (props) => {
         }
     }
     const onHideModalUser = async () => {
+        setActionModalUser("");
         setIsShowModalUser(false);
         setDataModalUser({});
         await fetchUsers();

@@ -13,13 +13,16 @@ const ModalUser = (props) => {
     useEffect(() => {
         getGroups();
     }, [])
+    //Change data modal user when clicked update button
     useEffect(() => {
         if (action === 'UPDATE') {
             setUserData({ ...dataModalUser, group: dataModalUser.Group ? dataModalUser.Group.id : '' });
         }
     }, [dataModalUser]);
 
-    //When user changed action, resign userData with groups info
+    //When user changed action from 'UPDATE' to 'CREATE' 
+    // userData is signed with update info not your empty create info(default).
+    // => So resign userData with create info
     useEffect(() => {
         if (action === 'CREATE') {
             if (userGroups && userGroups.length > 0) {
