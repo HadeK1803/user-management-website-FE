@@ -33,7 +33,7 @@ const Users = (props) => {
 
     const fetchUsers = async () => {
         let response = await fetchAllUsers(currentPage, currentLimit);
-        console.log(">>>Check response after fetching user: ", response);
+        // console.log(">>>Check response after fetching user: ", response);
         if (response && +response.EC === 0) {
 
             setListUsers(response.DT.users);

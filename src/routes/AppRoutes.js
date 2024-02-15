@@ -1,7 +1,7 @@
 import Login from '../components/Login/Login';
 import Register from '../components/Register/Register';
 import Users from '../components/ManageUser/Users';
-import _ from 'lodash';
+// import _ from 'lodash';
 import {
     BrowserRouter as Router,
     Switch,
