@@ -9,9 +9,15 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 //Font Awesome
 import 'font-awesome/css/font-awesome.min.css';
 
+//usercontext
+import { UserProvider } from './context/UserContext';
+
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <UserProvider>
+            <App />
+
+        </UserProvider>
     </React.StrictMode>,
     document.getElementById('root')
 );
