@@ -5,7 +5,7 @@ import Nav from './components/Navigation/Nav';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 
 import {
     BrowserRouter as Router
@@ -13,29 +13,44 @@ import {
 
 import AppRoutes from './routes/AppRoutes';
 
+import { TailSpin } from 'react-loader-spinner';
+
+import { UserContext } from './context/UserContext';
+
+
 function App() {
-
-    // const [account, setAccount] = useState({});
-
-    useEffect(() => {
-        // let session = sessionStorage.getItem("account");
-        // if (session) {
-        //     setAccount(JSON.parse(session));
-        // }
-    }, [])
+    const { user } = useContext(UserContext);
 
     return (
         <Router>
-            <div className='app-header'>
-                {/* Render Nav component when user logged in  */}
-                {/* {account && !_.isEmpty(account) && account.isAuthenticated && <Nav />} */}
-                <Nav />
+            {user && user.isLoading ?
+                <div className='loading-container'>
+                    <TailSpin
+                        visible={true}
+                        height="80"
+                        width="80"
+                        color="#1877f2"
+                        ariaLabel="tail-spin-loading"
+                        radius="1"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                    />
+                    <div>Loading data...</div>
+                </div>
+                :
+                <>
+                    <div className='app-header'>
+                        {/* Render Nav component when user logged in  */}
+                        {/* {account && !_.isEmpty(account) && account.isAuthenticated && <Nav />} */}
+                        <Nav />
+                    </div>
 
-            </div>
-            <div className='app-container'>
-                <AppRoutes />
+                    <div className='app-container'>
+                        <AppRoutes />
+                    </div>
+                </>
+            }
 
-            </div>
             <ToastContainer
                 position="top-right"
                 autoClose={5000}

@@ -13,14 +13,6 @@ const Login = (props) => {
     const [valueLogin, setValueLogin] = useState("");
     const [password, setPassword] = useState("");
 
-    useEffect(() => {
-        let session = sessionStorage.getItem("account");
-        if (session) {
-            history.push("/");
-        }
-
-    }, []);
-
     const defaultValidInputs = {
         isValidLogin: true,
         isValidPassword: true,
@@ -55,6 +47,7 @@ const Login = (props) => {
             if (response && +response.EC === 0) {
                 toast.success("Login successfully");
 
+                //set data for login context
                 let groupWithRoles = response.DT.groupWithRoles;
                 let email = response.DT.email;
                 let username = response.DT.username;
@@ -64,9 +57,8 @@ const Login = (props) => {
                     token: token,
                     account: { groupWithRoles, email, username }
                 }
-                //set session
-                sessionStorage.setItem("account", JSON.stringify(data));
 
+                //Set login context
                 loginContext(data);
 
                 history.push("/users");
