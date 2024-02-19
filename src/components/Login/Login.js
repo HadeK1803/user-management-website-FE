@@ -57,6 +57,8 @@ const Login = (props) => {
                     token: token,
                     account: { groupWithRoles, email, username }
                 }
+                // Set local storage for item JWT
+                localStorage.setItem('jwt', token);
 
                 //Set login context
                 loginContext(data);

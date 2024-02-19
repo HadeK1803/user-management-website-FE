@@ -51,6 +51,7 @@ const UserProvider = ({ children }) => {
     }
 
     useEffect(() => {
+        // Featch user account when the path is not '/' or '/login'
         if (window.location.pathname !== '/' || window.location.pathname !== '/login') {
             fetchUserAccount();
         } else {
