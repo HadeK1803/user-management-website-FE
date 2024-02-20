@@ -1,6 +1,6 @@
 import './App.scss';
 
-import Nav from './components/Navigation/Nav';
+import NavHeader from './components/Navigation/NavHeader';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -40,9 +40,9 @@ function App() {
                 :
                 <>
                     <div className='app-header'>
-                        {/* Render Nav component when user logged in  */}
+                        {/* Render NavHeader component when user logged in  */}
                         {/* {account && !_.isEmpty(account) && account.isAuthenticated && <Nav />} */}
-                        <Nav />
+                        <NavHeader />
                     </div>
 
                     <div className='app-container'>
