@@ -20,12 +20,8 @@ const UserProvider = ({ children }) => {
     };
 
     // Logout updates the user data to default
-    const logout = () => {
-        setUser((user) => ({
-            isAuthenticated: false,
-            token: '',
-            account: {}
-        }));
+    const logoutContext = () => {
+        setUser({ ...userDefaultData, isLoading: false });
     };
     // 
     const fetchUserAccount = async () => {
@@ -51,17 +47,18 @@ const UserProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        // Featch user account when the path is not '/' or '/login'
-        if (window.location.pathname !== '/' || window.location.pathname !== '/login') {
+        // Featch user account when the path is not '/' and '/login'
+        if (window.location.pathname !== '/' && window.location.pathname !== '/login') {
             fetchUserAccount();
         } else {
-            setUser({ ...userDefaultData, isLoading: false });
+            // Turn off loading when path is '/' or '/login'
+            setUser({ ...user, isLoading: false });
         }
     }, [])
 
 
     return (
-        <UserContext.Provider value={{ user, loginContext, logout }}>
+        <UserContext.Provider value={{ user, loginContext, logoutContext }}>
             {children}
         </UserContext.Provider>
     );
