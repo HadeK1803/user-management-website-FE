@@ -1,0 +1,20 @@
+.role-container {
+    .role-body {
+        .actions {
+            i {
+                font-size: 24px;
+                margin-top: 6px;
+                padding-right: 10px;
+                cursor: pointer;
+            }
+
+            .add {
+                color: #0b5ed7;
+            }
+
+            .delete {
+                color: #dc3545;
+            }
+        }
+    }
+}

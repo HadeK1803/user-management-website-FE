@@ -1,6 +1,7 @@
 import Login from '../components/Login/Login';
 import Register from '../components/Register/Register';
 import Users from '../components/ManageUser/Users';
+import Role from '../components/Role/Role';
 // import _ from 'lodash';
 import {
     BrowserRouter as Router,
@@ -20,6 +21,7 @@ const AppRoutes = (props) => {
                 {/* Use PrivateRoutes to check */}
                 <PrivateRoutes path="/users" component={Users} />
                 <PrivateRoutes path="/projects" component={Projects} />
+                <PrivateRoutes path="/roles" component={Role} />
 
                 <Route path="/login">
                     <Login />

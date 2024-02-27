@@ -82,7 +82,6 @@ const Register = (props) => {
         }
     }
     const handlePressEnter = (event) => {
-        console.log(event);
         if (event.charCode === 13 && event.code === "Enter") {
             handleClickedRegister();
         }
