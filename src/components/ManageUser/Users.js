@@ -93,7 +93,7 @@ const Users = (props) => {
                 <div className='manage-user-container'>
                     <div className='user-header'>
                         <div className='title mt-3'>
-                            <h3>User List</h3>
+                            <h3>List of User</h3>
                         </div>
                         <div className='action my-3'>
                             <button className='btn btn-success'
@@ -157,7 +157,7 @@ const Users = (props) => {
                                     :
                                     <>
                                         <tr>
-                                            <td>
+                                            <td colspan="7">
                                                 <span>Not found users</span>
                                             </td>
                                         </tr>
