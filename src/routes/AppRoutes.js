@@ -2,6 +2,9 @@ import Login from '../components/Login/Login';
 import Register from '../components/Register/Register';
 import Users from '../components/ManageUser/Users';
 import Role from '../components/Role/Role';
+import Home from '../components/Home/Home';
+import GroupRole from '../components/GroupRole/GroupRole';
+
 // import _ from 'lodash';
 import {
     BrowserRouter as Router,
@@ -22,6 +25,7 @@ const AppRoutes = (props) => {
                 <PrivateRoutes path="/users" component={Users} />
                 <PrivateRoutes path="/projects" component={Projects} />
                 <PrivateRoutes path="/roles" component={Role} />
+                <PrivateRoutes path="/group-role" component={GroupRole} />
 
                 <Route path="/login">
                     <Login />
@@ -30,7 +34,7 @@ const AppRoutes = (props) => {
                     <Register />
                 </Route>
                 <Route path="/" exact>
-                    Home
+                    <Home />
                 </Route>
                 <Route path="*">
                     404 NOT FOUND!

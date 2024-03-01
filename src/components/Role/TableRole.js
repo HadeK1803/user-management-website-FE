@@ -87,7 +87,7 @@ const TableRole = forwardRef((props, ref) => {
                             :
                             <>
                                 <tr>
-                                    <td colspan="4">
+                                    <td colSpan="4">
                                         <span>Not found roles</span>
                                     </td>
                                 </tr>

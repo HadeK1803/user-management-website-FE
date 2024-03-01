@@ -1,5 +1,5 @@
 import './Login.scss';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import { toast } from 'react-toastify';
 import { loginUser } from '../../services/userService';
@@ -10,6 +10,8 @@ const Login = (props) => {
     const { loginContext } = useContext(UserContext);
 
     let history = useHistory();
+
+    //Set state
     const [valueLogin, setValueLogin] = useState("");
     const [password, setPassword] = useState("");
 
@@ -22,7 +24,7 @@ const Login = (props) => {
     const handleCreateNewAccount = () => {
         history.push("/register");
     }
-
+    //Check valid inputs
     const isValidInputs = () => {
         setObjCheckInput(defaultValidInputs);
         if (!valueLogin) {
@@ -83,7 +85,11 @@ const Login = (props) => {
                 <div className='row'>
                     <div className='content-left col-12 col-sm-7 d-none d-sm-block'>
                         <div className='brand'>
-                            HadeK
+                            <span className='brand-name'
+                                onClick={() => history.push('/')}
+                            >
+                                HadeK
+                            </span>
                         </div>
                         <div className='detail'>
                             User management website
@@ -91,7 +97,11 @@ const Login = (props) => {
                     </div>
                     <div className='content-right col-12 col-sm-5 d-flex flex-column gap-3 py-3'>
                         <div className='brand d-sm-none '>
-                            HadeK
+                            <span className='brand-name'
+                                onClick={() => history.push('/')}
+                            >
+                                HadeK
+                            </span>
                         </div>
                         <input
                             type='text'

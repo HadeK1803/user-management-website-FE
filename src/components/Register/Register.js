@@ -99,7 +99,11 @@ const Register = (props) => {
                 <div className='row'>
                     <div className='content-left col-12 col-sm-7 d-none d-sm-block'>
                         <div className='brand'>
-                            HadeK
+                            <span className='brand-name'
+                                onClick={() => history.push('/')}
+                            >
+                                HadeK
+                            </span>
                         </div>
                         <div className='detail'>
                             User management website
@@ -107,7 +111,11 @@ const Register = (props) => {
                     </div>
                     <div className='content-right col-12 col-sm-5 d-flex flex-column gap-3 py-3'>
                         <div className='brand d-sm-none '>
-                            HadeK
+                            <span className='brand-name'
+                                onClick={() => history.push('/')}
+                            >
+                                HadeK
+                            </span>
                         </div>
                         <div className="form-group">
                             <label for="email" className=''>Email</label>
