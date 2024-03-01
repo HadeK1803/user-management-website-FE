@@ -48,12 +48,21 @@ const UserProvider = ({ children }) => {
 
     useEffect(() => {
         // Featch user account when the path is not '/' and '/login'
-        if (window.location.pathname !== '/' && window.location.pathname !== '/login') {
-            fetchUserAccount();
-        } else {
-            // Turn off loading when path is '/' or '/login'
-            setUser({ ...user, isLoading: false });
-        }
+        // if (window.location.pathname !== '/' && window.location.pathname !== '/login' && window.location.pathname !== '/register') {
+
+        //Fetch user account when the path is not '/'
+        // if (window.location.pathname !== '/') {
+        //     fetchUserAccount();
+        // }
+        // If user was logged in, fetch user account again
+        // else if (localStorage.getItem('jwt')) {
+        //     fetchUserAccount();
+        // }
+        // else {
+        //     // Turn off loading when path is '/' 
+        //     setUser({ ...user, isLoading: false });
+        // }
+        fetchUserAccount();
     }, [])
 
 

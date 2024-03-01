@@ -23,6 +23,12 @@
 }
 
 .nav-header {
+
+    .navbar {
+        padding-bottom: 0 !important;
+        padding-top: 2px !important;
+    }
+
     .bg-header {
         background-color: #20232a;
     }
@@ -60,7 +66,7 @@
     .nav-link {
         &.active {
             color: #61dafb !important;
-            // border-bottom: 1px solid #61dafb !important;
+            border-bottom: 2px solid #61dafb !important;
             ;
         }
     }

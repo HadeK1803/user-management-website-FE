@@ -15,7 +15,9 @@ import PrivateRoutes from "./PrivateRoutes";
 const AppRoutes = (props) => {
     const Projects = () => {
         return (
-            <h1>Projects</h1>
+            <div className='container mt-3'>
+                <h1>Projects</h1>
+            </div>
         )
     }
     return (
@@ -37,7 +39,13 @@ const AppRoutes = (props) => {
                     <Home />
                 </Route>
                 <Route path="*">
-                    404 NOT FOUND!
+                    <>
+                        <div className='container mt-3'>
+                            <h1>
+                                404 NOT FOUND!
+                            </h1>
+                        </div>
+                    </>
                 </Route>
             </Switch>
         </>

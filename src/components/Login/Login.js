@@ -7,9 +7,15 @@ import { loginUser } from '../../services/userService';
 import { UserContext } from '../../context/UserContext';
 
 const Login = (props) => {
-    const { loginContext } = useContext(UserContext);
+    const { user, loginContext } = useContext(UserContext);
 
     let history = useHistory();
+
+    useEffect(() => {
+        if (user && user.isAuthenticated === true) {
+            history.push('/');
+        }
+    }, [])
 
     //Set state
     const [valueLogin, setValueLogin] = useState("");
